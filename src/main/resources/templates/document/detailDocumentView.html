@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:insert="~{fragments.html :: charset_webjars_genericTitle}"></th:block>
+</head>
+
+<body class="bg-light">
+    <div class="container mt-4">
+        <h1 class="text-center mb-4">Document Details</h1>
+        
+        <div class="table-responsive bg-white p-4 rounded shadow-sm mb-4">
+            <h2>Document Information</h2>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Content</th>
+                        <th>Hash</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td th:text="${document.documentId}">Id</td>
+                        <td th:text="${document.documentName}">Name</td>
+                        <td th:text="${document.documentContent}">Content</td>
+                        <td th:text="${document.documentHash}">Hash</td>
+                        <td><a th:href="@{/document/delete/{id}(id=${document.documentId})}" class="btn btn-danger btn-sm">Delete</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="table-responsive bg-white p-4 rounded shadow-sm mb-4">
+            <h2>Signatures</h2>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Signature ID</th>
+                        <th>Signature (Base64)</th>
+                        <th>Signed By</th>
+                        <th>Signature Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="signature : ${signatures}">
+                        <td th:text="${signature.signatureId}">Signature ID</td>
+                        <td th:text="${signature.signature}">Base64 Signature</td>
+                        <td th:text="${signature.signatory.signatoryName}">Signatory Name</td>
+                        <td th:text="${#temporals.format(signature.signatureDate, 'yyyy-MM-dd HH:mm')}">Date</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="text-center mt-3">
+            <a th:href="@{/}" class="btn btn-primary btn-sm">Back to Index</a>
+            <a th:href="@{/document/new}" class="btn btn-success btn-sm">New Document</a>
+        </div>
+    </div>
+</body>
+<footer th:insert="~{/fragments.html::generic_footer}">
+    </div>
+
+</footer>
+
+</html>

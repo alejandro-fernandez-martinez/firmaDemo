@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:insert="~{fragments.html :: charset_webjars_genericTitle}"></th:block>
+</head>
+
+<body class="bg-light">
+    <div class="container mt-4">
+        <h1 class="text-center mb-4">List of All Signatures</h1>
+
+        <div class="table-responsive bg-white p-4 rounded shadow-sm mb-4">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Signature (Base64)</th>
+                        <th>Date</th>
+                        <th>Signatory</th>
+                        <th>Document</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="signature : ${signatureList}">
+                        <td th:text="${signature.signatureId}">ID</td>
+                        <td th:text="${signature.signature}">Signature</td>
+                        <td th:text="${#temporals.format(signature.signatureDate, 'yyyy-MM-dd HH:mm')}">Date</td>
+                        <td th:text="${signature.signatory.signatoryName}">Signatory</td>
+                        <td th:text="${signature.document.documentName}">Document </td>
+                        <td>
+                            <a th:href="@{/signature/delete/{id}(id=${signature.signatureId})}" class="btn btn-danger btn-sm">Delete</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="text-center mt-3">
+            <a th:href="@{/}" class="btn btn-primary btn-sm">Back to Index</a>
+            <a th:href="@{/signature/new}" class="btn btn-success btn-sm">New Signature</a>
+        </div>
+<footer th:insert="~{/fragments.html::generic_footer}">
+    </div>
+
+</footer>
+
+</html>

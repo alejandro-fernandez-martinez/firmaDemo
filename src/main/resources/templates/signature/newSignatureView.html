@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:insert="~{fragments.html :: charset_webjars_genericTitle}"></th:block>
+</head>
+
+<body class="bg-light">
+    <div class="container mt-4">
+        <h1 class="text-center mb-4">New Signature</h1>
+
+        <div class="bg-white p-4 rounded shadow-sm">
+            <form th:action="@{/signature/new/submit}" method="post">
+                <div class="mb-3">
+                    <label for="documentId" class="form-label">Select Document:</label>
+                    <select id="documentId" name="documentId" class="form-select" required>
+                        <option th:each="document : ${documents}" 
+                                th:value="${document.documentId}" 
+                                th:text="${document.documentName}">Document Name</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="signatoryId" class="form-label">Select Signatory:</label>
+                    <select id="signatoryId" name="signatoryId" class="form-select" required>
+                        <option th:each="signatory : ${signatories}" 
+                                th:value="${signatory.signatoryId}" 
+                                th:text="${signatory.signatoryName}">Signatory Name</option>
+                    </select>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Create Signature</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="text-center mt-3">
+            <a th:href="@{/}" class="btn btn-secondary btn-sm">Back to Index</a>
+        </div>
+    </div>
+</body>
+<footer th:insert="~{/fragments.html::generic_footer}">
+    </div>
+
+</footer>
+
+</html>

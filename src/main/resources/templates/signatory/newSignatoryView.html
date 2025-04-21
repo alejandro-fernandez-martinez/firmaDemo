@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:insert="~{fragments.html :: charset_webjars_genericTitle}"></th:block>
+</head>
+
+<body class="bg-light">
+    <div class="container mt-4">
+        <h1 class="text-center mb-4">New signatory</h1>
+        <form method="post" action="#" th:action="@{/signatory/new/submit}" th:object="${signatoryForm}" class="form-group">
+            <div class="mb-3">
+                <label for="signatoryName" class="form-label">Name:</label>
+                <input type="text" id="signatoryName" th:field="*{signatoryName}" class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label for="signatoryPass" class="form-label">Pass:</label>
+                <input type="text" id="signatoryPass" th:field="*{signatoryPass}" class="form-control" />
+            </div>
+            <div class="text-center">
+                <input type="submit" value="Send" class="btn btn-primary btn-sm" />
+            </div>
+        </form>
+        <div class="text-center mt-3">
+            <a th:href="@{/}" class="btn btn-secondary btn-sm">Back to Index</a>
+        </div>
+    </div>
+</body>
+
+<footer th:insert="~{/fragments.html::generic_footer}">
+    </div>
+
+</footer>
+
+</html>

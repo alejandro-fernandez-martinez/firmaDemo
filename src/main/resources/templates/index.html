@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:insert="~{fragments.html :: charset_webjars_genericTitle}"></th:block>
+</head>
+
+<body class="bg-light">
+    <div class="container mt-4">
+        <h1 class="text-center">firmademo</h1>
+        <div class="list-group">
+            <div class="list-group mb-4 text-center">
+                <a th:href="@{/signatory/new}" class="list-group-item list-group-item-action">New signatory</a><br />
+                <a th:href="@{/signatory/list}" class="list-group-item list-group-item-action">List signatories</a><br />
+            </div>
+            <div class="list-group mb-4 text-center">
+                <a th:href="@{/document/new}" class="list-group-item list-group-item-action">New document</a><br />
+                <a th:href="@{/document/list}" class="list-group-item list-group-item-action">List documents</a><br />
+            </div>
+            <div class="list-group mb-4 text-center">
+                <a th:href="@{/signature/new}" class="list-group-item list-group-item-action">New signature</a><br />
+                <a th:href="@{/signature/list}" class="list-group-item list-group-item-action">List signature</a><br />
+                <a th:href="@{/signature/verify}" class="list-group-item list-group-item-action">Verify signature</a><br />
+            </div>
+        </div>
+    </div>
+
+</body>
+
+<footer th:insert="~{/fragments.html::generic_footer}" class="mt-4">
+</footer>
+
+</html>

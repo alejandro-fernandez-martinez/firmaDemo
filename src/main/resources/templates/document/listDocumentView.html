@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:insert="~{fragments.html :: charset_webjars_genericTitle}"></th:block>
+</head>
+
+<body class="bg-light">
+    <div class="container mt-4">
+        <h1 class="text-center mb-4">List of all documents</h1>
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+                <thead class="thead-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Content</th>
+                        <th>Hash</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="document : ${documentList}">
+                        <td th:text="${document.documentId}">Id</td>
+                        <td><a th:href="@{/document/{id}(id=${document.documentId})}" th:text="${document.documentName}">name</a></td>
+                        <td th:text="${document.documentContent.length() > 100} ?
+                            ${#strings.substring(document.documentContent, 0, 100)} + '...' :
+                            ${document.documentContent}">content</td>
+                        <td th:text="${document.documentHash}">hash</td>
+                        <td>
+                            <a th:href="@{/document/delete/{id}(id=${document.documentId})}" class="btn btn-danger btn-sm">Delete</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="text-center mt-3">
+            <a th:href="@{/}" class="btn btn-primary btn-sm">Back to Index</a>
+            <a th:href="@{/document/new}" class="btn btn-success btn-sm">New document</a>
+        </div>
+    </div>
+</body>
+<footer th:insert="~{/fragments.html::generic_footer}">
+    </div>
+
+</footer>
+
+</html>

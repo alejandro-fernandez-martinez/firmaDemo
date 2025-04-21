@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:insert="~{fragments.html :: charset_webjars_genericTitle}"></th:block>
+</head>
+
+<body class="bg-light">
+    <div class="container mt-4">
+        <h1 class="text-center mb-4">List of All Signatures</h1>
+        <div class="mt-4">
+            <p th:if="${verificationResult}"
+               th:text="${verificationResult}"
+               class="alert alert-info text-center fw-bold fs-5 shadow-sm border border-info rounded">
+            </p>
+        </div>
+        <div class="table-responsive bg-white p-3 rounded shadow-sm">
+            <table class="table table-striped table-bordered align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>Signature (base64)</th>
+                        <th>Date</th>
+                        <th>Signatory</th>
+                        <th>Document</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="signature : ${signatureList}">
+                        <td th:text="${signature.signatureId}">ID</td>
+                        <td th:text="${signature.signature.length() > 100} ?
+                                     ${#strings.substring(signature.signature, 0, 100)} + '...' :
+                                     ${signature.signature}">Signature</td>
+                        <td th:text="${#temporals.format(signature.signatureDate, 'yyyy-MM-dd HH:mm')}">Date</td>
+                        <td th:text="${signature.signatory.signatoryName}">Signatory</td>
+                        <td th:text="${signature.document.documentName}">Document</td>
+                        <td>
+                            <a class="btn btn-danger btn-sm mb-2" th:href="@{/signature/delete/{id}(id=${signature.signatureId})}">Delete</a>
+
+                            <form class="border-top pt-2" th:action="@{/signature/verify/submit}" method="post" enctype="multipart/form-data">
+                                <input type="hidden" name="signatureId" th:value="${signature.signatureId}" />
+
+                                <div class="mb-2">
+                                    <label for="signatoryId" class="form-label">Select Signatory:</label>
+                                    <select id="signatoryId" name="signatoryId" class="form-select form-select-sm" required>
+                                        <option value="" disabled>-- choose --</option>
+                                        <option th:each="s : ${signatoriesList}"
+                                                th:value="${s.signatoryId}"
+                                                th:text="${s.signatoryName}"
+                                                th:selected="${s.signatoryId == signature.signatory.signatoryId}">
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-2">
+                                    <label class="form-label">Select Original Document:</label>
+                                    <input type="file" name="fileToVerify" class="form-control form-control-sm" required />
+                                </div>
+
+                                <button type="submit" class="btn btn-secondary btn-sm">Verify</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="text-center mt-4">
+            <a th:href="@{/}" class="btn btn-outline-primary me-2">Index</a>
+            <a th:href="@{/signature/new}" class="btn btn-success">New Signature</a>
+        </div>
+    </div>
+</body>
+
+<footer th:insert="~{/fragments.html::generic_footer}">
+    </div>
+
+</footer>
+
+</html>

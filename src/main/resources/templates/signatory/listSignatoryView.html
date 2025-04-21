@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:insert="~{fragments.html :: charset_webjars_genericTitle}"></th:block>
+</head>
+
+<body class="bg-light">
+    <div class="container mt-4">
+        <h1 class="text-center">List of all signatories</h1>
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Pass</th>
+                        <th>PublicKey</th>
+                        <th>PrivateKeyUnencrypted</th>
+                        <th>PrivateKey</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="signatory : ${signatoryList}">
+                        <td th:text="${signatory.signatoryId}">Id</td>
+                        <td th:text="${signatory.signatoryName}">name</td>
+                        <td th:text="${signatory.signatoryPass}">pass</td>
+                        <td th:text="${signatory.signatoryPublicKey}">publicKey</td>
+                        <td th:text="${signatory.signatoryPrivateKeyUnencrypted}">privateKeyUnencrypted</td>
+                        <td th:text="${signatory.signatoryPrivateKey}">privateKey</td>
+                        <td>
+                            <a th:href="@{/signatory/delete/{id}(id=${signatory.signatoryId})}" class="btn btn-danger btn-sm">Delete</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="text-center mt-3">
+            <a th:href="@{/}" class="btn btn-primary btn-sm">Back to Index</a>
+            <a th:href="@{/signatory/new}" class="btn btn-success btn-sm">New signatory</a>
+        </div>
+    </div>
+</body>
+
+<footer th:insert="~{/fragments.html::generic_footer}">
+    </div>
+
+</footer>
+
+</html>
